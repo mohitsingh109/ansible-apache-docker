@@ -1,0 +1,15 @@
+---
+- name: Pull Apache Docker image
+  docker_image:
+    name: httpd
+    source: pull
+
+- name: Run Apache in Docker container
+  docker_container:
+    name: apache
+    image: httpd
+    state: started
+    exposed_ports:
+      - "80"
+    published_ports:
+      - "8080:80"

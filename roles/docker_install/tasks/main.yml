@@ -1,0 +1,13 @@
+---
+- name: Install Docker on Linux
+  become: yes
+  apt:
+    name: docker.io
+    state: present
+    update_cache: yes
+  when: ansible_os_family == 'Debian'
+
+- name: Skip Docker installation for macOS
+  debug:
+    msg: "Docker is already installed on macOS. Skipping installation."
+  when: ansible_os_family == 'Darwin'
