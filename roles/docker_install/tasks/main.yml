@@ -1,13 +1,13 @@
 ---
 - name: Install Docker on Linux
-  become: yes
-  apt:
-    name: docker.io
-    state: present
-    update_cache: yes
-  when: ansible_os_family == 'Debian'
+  become: yes                          # Use privilege escalation (sudo) to install Docker
+  apt:                                  # The 'apt' module is used to install packages on Debian-based systems
+    name: docker.io                     # Name of the Docker package to install
+    state: present                      # Ensure Docker is installed
+    update_cache: yes                    # Update the apt cache to make sure we are installing the latest version
+  when: ansible_os_family == 'Debian'   # Only execute this task when the OS family is Debian (e.g., Ubuntu)
 
 - name: Skip Docker installation for macOS
-  debug:
-    msg: "Docker is already installed on macOS. Skipping installation."
-  when: ansible_os_family == 'Darwin'
+  debug:                               # The 'debug' module is used to display messages during playbook execution
+    msg: "Docker is already installed on macOS. Skipping installation."  # Custom message indicating Docker is already installed
+  when: ansible_os_family == 'Darwin'   # Only execute this task when the OS family is Darwin (macOS)

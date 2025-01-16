@@ -1,8 +1,10 @@
 ---
-- name: Deploy Apache Server on Docker Containers
-  hosts: webservers
-  become: yes
-  gather_facts: yes # Make sure facts are gathered
+- name: Deploy Apache Server on Docker Containers  # Name of the playbook
+  hosts: webservers  # The group of hosts to run this playbook on (defined in inventory)
+  become: yes  # Ensure that tasks requiring elevated privileges are executed with 'sudo'
+  gather_facts: yes  # Gather system facts for the target hosts (e.g., OS, architecture, etc.)
+
+  # Roles are reusable sets of tasks that are organized in a directory structure.
   roles:
-    - docker_install
-    - apache_deploy
+    - docker_install  # Role to install Docker on the target hosts
+    - apache_deploy  # Role to deploy Apache server in a Docker container

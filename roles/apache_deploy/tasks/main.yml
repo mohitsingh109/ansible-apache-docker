@@ -1,15 +1,17 @@
 ---
 - name: Pull Apache Docker image
   docker_image:
-    name: httpd
-    source: pull
+    name: httpd           # Specify the name of the Docker image to pull
+    source: pull          # Indicate that the source is "pull" (to pull the image from a repository)
+  # This task pulls the Apache HTTP Docker image (httpd) from Docker Hub if it is not already present locally.
 
 - name: Run Apache in Docker container
   docker_container:
-    name: apache
-    image: httpd
-    state: started
+    name: apache           # Name of the Docker container to be created
+    image: httpd           # Use the 'httpd' image to create the container
+    state: started         # Start the container if it's not already running
     exposed_ports:
-      - "80"
+      - "80"                # Expose port 80 inside the container (default Apache HTTP port)
     published_ports:
-      - "8080:80"
+      - "8080:80"           # Map port 8080 on the host to port 80 on the container (making Apache accessible on port 8080)
+  # This task runs the Apache container using the pulled 'httpd' image and maps host port 8080 to container port 80.
